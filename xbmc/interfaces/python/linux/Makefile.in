@@ -65,6 +65,7 @@ PYO=$(addsuffix o, $(PY))
 ifeq ($(findstring osx,$(ARCH)), osx)
 all: $(SLIB)
 
+ifneq (@USE_EXTERNAL_PYTHON@,1)
 $(SLIB): $(PYWRAP) $(abs_top_srcdir)/lib/python/libpython2.4.a $(PYO) $(abs_top_srcdir)/tools/Mach5/wrapper.rb
 	rm -rf $(SYSDIR)/Lib
 	rsync -a --exclude '.svn' -t $(abs_top_srcdir)/lib/python/build/$(PYLIBDIR)/*.so $(SYSDIR)/Lib
@@ -72,12 +73,17 @@ $(SLIB): $(PYWRAP) $(abs_top_srcdir)/lib/python/libpython2.4.a $(PYO) $(abs_top_
 	for dirs in $(PYDIRS); do rsync -a --exclude 'test*'  --exclude '.svn' $(abs_top_srcdir)/lib/python/Lib/$$dirs $(SYSDIR)/Lib; done
 	(mkdir -p tmp && rm -rf tmp/*)
 	(cd ./tmp && ar x $(abs_top_srcdir)/lib/python/libpython2.4.a)
-	$(CXX) -bundle -flat_namespace -undefined suppress -shared -o $@ \
+	$(CC) $(LDFLAGS) -bundle -flat_namespace -undefined suppress -shared -o $@ \
 		tmp/*.o \
 		wrapper_python.o
 	$(abs_top_srcdir)/tools/Mach5/wrapper.rb $@ libpython;mv output.so $@
 	$(abs_top_srcdir)/tools/Mach5/wrapper.rb $@;mv output.so $@
 	@rm -rf tmp
+else
+$(SLIB): $(PYWRAP)
+	$(CC) $(LDFLAGS) -bundle -undefined dynamic_lookup -o $@ \
+		-l$(PYVERSION) wrapper_python.o
+endif
 
 $(abs_top_srcdir)/lib/python/libpython2.4.a: compile
 	$(MAKE) -C $(abs_top_srcdir)/lib/python
