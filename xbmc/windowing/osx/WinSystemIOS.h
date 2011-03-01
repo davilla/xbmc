@@ -25,7 +25,8 @@
  */
 #if defined(__APPLE__) && defined(__arm__)
 #include "WinSystem.h"
-#include "RenderSystemGLES.h"
+#include "rendering/RenderSystemGLES.h"
+#include "utils/GlobalsHandling.h"
 
 class CWinSystemIOS : public CWinSystemBase, public CRenderSystemGLES
 {
@@ -69,6 +70,10 @@ protected:
   CStdString   m_eglext;
   int          m_iVSyncErrors;
 };
+
+XBMC_GLOBAL_REF(CWinSystemIOS,g_Windowing);
+#define g_Windowing XBMC_GLOBAL_USE(CWinSystemIOS)
+
 #endif
 
 #endif // WINDOW_SYSTEM_IOSEGL_H
