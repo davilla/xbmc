@@ -25,7 +25,12 @@
 #ifndef _WIN32
 
 #include "utils/StdString.h"
+#if defined(__APPLE__) && defined(__arm__)
+#include <utils/XBMC_cond.h>
+#include <utils/XBMC_mutex.h>
+#else
 #include <SDL/SDL_mutex.h>
+#endif
 #include <pthread.h>
 
 #include "PlatformDefs.h"
