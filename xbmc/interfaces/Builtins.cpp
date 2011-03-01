@@ -330,6 +330,10 @@ int CBuiltins::Execute(const CStdString& execString)
     {
       // disable the screensaver
       g_application.WakeUpScreenSaverAndDPMS();
+#if defined(__APPLE__) && defined(__arm__)
+      if (params[0].Equals("shutdownmenu"))
+        CBuiltins::Execute("Quit");
+#endif     
       g_windowManager.ActivateWindow(iWindow, params, !execute.Equals("activatewindow"));
     }
     else
@@ -348,7 +352,7 @@ int CBuiltins::Execute(const CStdString& execString)
 #ifdef HAS_PYTHON
   else if (execute.Equals("runscript") && params.size())
   {
-#if defined(__APPLE__)
+#if defined(__APPLE__) && !defined(__arm__)
     if (URIUtils::GetExtension(strParameterCaseIntact) == ".applescript")
     {
       CStdString osxPath = CSpecialProtocol::TranslatePath(strParameterCaseIntact);
@@ -374,7 +378,7 @@ int CBuiltins::Execute(const CStdString& execString)
     }
   }
 #endif
-#if defined(__APPLE__)
+#if defined(__APPLE__) && !defined(__arm__)
   else if (execute.Equals("runapplescript"))
   {
     Cocoa_DoAppleScript(strParameterCaseIntact.c_str());
