@@ -49,59 +49,79 @@
 #include "utils/TimeUtils.h"
 
 #ifndef _LINUX
-#if (defined USE_EXTERNAL_PYTHON) && (defined HAVE_LIBPYTHON2_6)
-#define PYTHON_DLL "special://xbmcbin/system/python/python26.dll"
+  #if (defined USE_EXTERNAL_PYTHON) && (defined HAVE_LIBPYTHON2_6)
+    #define PYTHON_DLL "special://xbmcbin/system/python/python26.dll"
+  #else
+    #define PYTHON_DLL "special://xbmcbin/system/python/python24.dll"
+  #endif
 #else
-#define PYTHON_DLL "special://xbmcbin/system/python/python24.dll"
-#endif
-#else
-#if defined(__APPLE__)
-#if defined(__POWERPC__)
-#define PYTHON_DLL "special://xbmcbin/system/python/python24-powerpc-osx.so"
-#else
-#define PYTHON_DLL "special://xbmcbin/system/python/python24-x86-osx.so"
-#endif
-#elif defined(__x86_64__)
-#if (defined HAVE_LIBPYTHON2_6)
-#define PYTHON_DLL "special://xbmcbin/system/python/python26-x86_64-linux.so"
-#elif (defined HAVE_LIBPYTHON2_5)
-#define PYTHON_DLL "special://xbmcbin/system/python/python25-x86_64-linux.so"
-#else
-#define PYTHON_DLL "special://xbmcbin/system/python/python24-x86_64-linux.so"
-#endif
-#elif defined(_POWERPC)
-#if (defined HAVE_LIBPYTHON2_6)
-#define PYTHON_DLL "special://xbmcbin/system/python/python26-powerpc-linux.so"
-#elif (defined HAVE_LIBPYTHON2_5)
-#define PYTHON_DLL "special://xbmcbin/system/python/python25-powerpc-linux.so"
-#else
-#define PYTHON_DLL "special://xbmcbin/system/python/python24-powerpc-linux.so"
-#endif
-#elif defined(_POWERPC64)
-#if (defined HAVE_LIBPYTHON2_6)
-#define PYTHON_DLL "special://xbmcbin/system/python/python26-powerpc64-linux.so"
-#elif (defined HAVE_LIBPYTHON2_5)
-#define PYTHON_DLL "special://xbmcbin/system/python/python25-powerpc64-linux.so"
-#else
-#define PYTHON_DLL "special://xbmcbin/system/python/python24-powerpc64-linux.so"
-#endif
-#elif defined(_ARMEL)
-#if (defined HAVE_LIBPYTHON2_6)
-#define PYTHON_DLL "special://xbmc/system/python/python26-arm.so"
-#elif (defined HAVE_LIBPYTHON2_5)
-#define PYTHON_DLL "special://xbmc/system/python/python25-arm.so"
-#else
-#define PYTHON_DLL "special://xbmc/system/python/python24-arm.so"
-#endif
-#else /* !__x86_64__ && !__powerpc__ */
-#if (defined HAVE_LIBPYTHON2_6)
-#define PYTHON_DLL "special://xbmcbin/system/python/python26-i486-linux.so"
-#elif (defined HAVE_LIBPYTHON2_5)
-#define PYTHON_DLL "special://xbmcbin/system/python/python25-i486-linux.so"
-#else
-#define PYTHON_DLL "special://xbmcbin/system/python/python24-i486-linux.so"
-#endif
-#endif /* __x86_64__ */
+  #if defined(__APPLE__)
+    #if defined(__POWERPC__)
+      #if (defined HAVE_LIBPYTHON2_6)
+        #define PYTHON_DLL "special://xbmcbin/system/python/python26-powerpc-osx.so"
+      #elif (defined HAVE_LIBPYTHON2_5)
+        #define PYTHON_DLL "special://xbmcbin/system/python/python25-powerpc-osx.so"
+      #else
+        #define PYTHON_DLL "special://xbmcbin/system/python/python24-powerpc-osx.so"
+      #endif
+    #elif defined(__arm__)
+      #if (defined HAVE_LIBPYTHON2_6)
+        #define PYTHON_DLL "special://xbmcbin/system/python/python26-arm-osx.so"
+      #elif (defined HAVE_LIBPYTHON2_5)
+        #define PYTHON_DLL "special://xbmcbin/system/python/python25-arm-osx.so"
+      #else
+        #define PYTHON_DLL "special://xbmcbin/system/python/python24-arm-osx.so"
+      #endif
+    #else
+      #if (defined HAVE_LIBPYTHON2_6)
+        #define PYTHON_DLL "special://xbmcbin/system/python/python26-x86-osx.so"
+      #elif (defined HAVE_LIBPYTHON2_5)
+        #define PYTHON_DLL "special://xbmcbin/system/python/python25-x86-osx.so"
+      #else
+        #define PYTHON_DLL "special://xbmcbin/system/python/python24-x86-osx.so"
+      #endif
+    #endif
+  #elif defined(__x86_64__)
+    #if (defined HAVE_LIBPYTHON2_6)
+      #define PYTHON_DLL "special://xbmcbin/system/python/python26-x86_64-linux.so"
+    #elif (defined HAVE_LIBPYTHON2_5)
+      #define PYTHON_DLL "special://xbmcbin/system/python/python25-x86_64-linux.so"
+    #else
+      #define PYTHON_DLL "special://xbmcbin/system/python/python24-x86_64-linux.so"
+    #endif
+  #elif defined(_POWERPC)
+    #if (defined HAVE_LIBPYTHON2_6)
+      #define PYTHON_DLL "special://xbmcbin/system/python/python26-powerpc-linux.so"
+    #elif (defined HAVE_LIBPYTHON2_5)
+      #define PYTHON_DLL "special://xbmcbin/system/python/python25-powerpc-linux.so"
+    #else
+      #define PYTHON_DLL "special://xbmcbin/system/python/python24-powerpc-linux.so"
+    #endif
+  #elif defined(_POWERPC64)
+    #if (defined HAVE_LIBPYTHON2_6)
+      #define PYTHON_DLL "special://xbmcbin/system/python/python26-powerpc64-linux.so"
+    #elif (defined HAVE_LIBPYTHON2_5)
+      #define PYTHON_DLL "special://xbmcbin/system/python/python25-powerpc64-linux.so"
+    #else
+      #define PYTHON_DLL "special://xbmcbin/system/python/python24-powerpc64-linux.so"
+    #endif
+  #elif defined(_ARMEL) && !defined(__APPLE__)
+    #if (defined HAVE_LIBPYTHON2_6)
+      #define PYTHON_DLL "special://xbmc/system/python/python26-arm.so"
+    #elif (defined HAVE_LIBPYTHON2_5)
+      #define PYTHON_DLL "special://xbmc/system/python/python25-arm.so"
+    #else
+      #define PYTHON_DLL "special://xbmc/system/python/python24-arm.so"
+    #endif
+  #else /* !__x86_64__ && !__powerpc__ */
+    #if (defined HAVE_LIBPYTHON2_6)
+      #define PYTHON_DLL "special://xbmcbin/system/python/python26-i486-linux.so"
+    #elif (defined HAVE_LIBPYTHON2_5)
+      #define PYTHON_DLL "special://xbmcbin/system/python/python25-i486-linux.so"
+    #else
+      #define PYTHON_DLL "special://xbmcbin/system/python/python24-i486-linux.so"
+    #endif
+  #endif /* __x86_64__ */
 #endif /* _LINUX */
 
 extern "C" HMODULE __stdcall dllLoadLibraryA(LPCSTR file);
@@ -374,24 +394,32 @@ void XBPython::Initialize()
       // at http://docs.python.org/using/cmdline.html#environment-variables
 
 #if (!defined USE_EXTERNAL_PYTHON)
-#ifdef _LINUX
-      // Required for python to find optimized code (pyo) files
-      setenv("PYTHONOPTIMIZE", "1", 1);
-      setenv("PYTHONHOME", _P("special://xbmc/system/python").c_str(), 1);
-#ifdef __APPLE__
-      // OSX uses contents from extracted zip, 3X to 4X times faster during Py_Initialize
-      setenv("PYTHONPATH", _P("special://xbmc/system/python/Lib").c_str(), 1);
-#else
-      setenv("PYTHONPATH", _P("special://xbmcbin/system/python/python24.zip").c_str(), 1);
-#endif /* __APPLE__ */
-      setenv("PYTHONCASEOK", "1", 1);
-      CLog::Log(LOGDEBUG, "Python wrapper library linked with internal Python library");
-#endif /* _LINUX */
+  #ifdef _LINUX
+        // Required for python to find optimized code (pyo) files
+        setenv("PYTHONOPTIMIZE", "1", 1);
+        setenv("PYTHONHOME", _P("special://xbmc/system/python").c_str(), 1);
+        #ifdef __APPLE__
+          // OSX uses contents from extracted zip, 3X to 4X times faster during Py_Initialize
+          setenv("PYTHONPATH", _P("special://xbmc/system/python/Lib").c_str(), 1);
+        #else
+          setenv("PYTHONPATH", _P("special://xbmcbin/system/python/python24.zip").c_str(), 1);
+        #endif /* __APPLE__ */
+        setenv("PYTHONCASEOK", "1", 1);
+        CLog::Log(LOGDEBUG, "Python wrapper library linked with internal Python library");
+  #endif /* _LINUX */
 #elif !defined(_WIN32)
       /* PYTHONOPTIMIZE is set off intentionally when using external Python.
          Reason for this is because we cannot be sure what version of Python
          was used to compile the various Python object files (i.e. .pyo,
          .pyc, etc.). */
+      #if defined(__APPLE__) && defined(__arm__)
+          // using external python, it's build looking for xxx/lib/python2.6
+          // so point it to frameworks/usr which is where python2.6 is located
+          setenv("PYTHONHOME", _P("special://frameworks/usr").c_str(), 1);
+          setenv("PYTHONPATH", _P("special://frameworks/usr").c_str(), 1);
+          CLog::Log(LOGDEBUG, "PYTHONHOME -> %s", _P("special://frameworks/usr").c_str());
+          CLog::Log(LOGDEBUG, "PYTHONPATH -> %s", _P("special://frameworks/usr").c_str());
+      #endif
       setenv("PYTHONCASEOK", "1", 1); //This line should really be removed
       CLog::Log(LOGDEBUG, "Python wrapper library linked with system Python library");
 #endif /* USE_EXTERNAL_PYTHON */
@@ -400,10 +428,15 @@ void XBPython::Initialize()
       // If this is not the first time we initialize Python, the interpreter
       // lock already exists and we need to lock it as PyEval_InitThreads
       // would not do that in that case.
-      if (PyEval_ThreadsInitialized())
-        PyEval_AcquireLock();
-      else
+      #if defined(__APPLE__) && defined(__arm__)
+        // grrr, we hang at PyEval_ThreadsInitialized after unloading/loading python
         PyEval_InitThreads();
+      #else
+        if (PyEval_ThreadsInitialized())
+          PyEval_AcquireLock();
+        else
+          PyEval_InitThreads();
+      #endif
 
       char* python_argv[1] = { (char*)"" } ;
       PySys_SetArgv(1, python_argv);

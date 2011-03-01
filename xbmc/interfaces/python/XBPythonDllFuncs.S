@@ -14,7 +14,7 @@
 #else
   #include "python/Include/pyconfig.h"
 #endif
-#ifndef __arm__
+
 #ifndef __APPLE__
 #if defined(__PPC__)
 #define FUNCTION(name)        \
@@ -46,6 +46,12 @@
     lwz r12,lo16(_p_##name)(r11)  @\
     mtctr r12                     @\
     bctr
+#elif defined(__APPLE__) && defined(__arm__)
+#define FUNCTION(name)        \
+    .globl name;              \
+    @.type name, %function;   \
+    name:                     \
+        b (p_##name)
 #else
 #define FUNCTION(name)        \
   .globl _##name;             \
@@ -53,6 +59,9 @@
     jmp *(_p_##name)
 #endif
 
+#if defined(__arm__)
+.arm
+#endif
 .text
 
   FUNCTION(PyEval_ReleaseLock)
