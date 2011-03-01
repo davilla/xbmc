@@ -138,9 +138,17 @@ extern "C" void __stdcall init_emu_environ()
 #else
   dll_putenv("OS=unknown");
 #endif
+#if defined(__APPLE__) && defined(__arm__)
+  // using external python, it's build looking for xxx/lib/python2.6
+  // so point it to frameworks/usr which is where python2.6 is located
+  dll_putenv(string("PYTHONPATH=" + _P("special://frameworks/usr")).c_str());
+  dll_putenv(string("PYTHONHOME=" + _P("special://frameworks/usr")).c_str());
+  dll_putenv(string("PATH=.;" + _P("special://xbmc") + ";" + _P("special://frameworks/usr")).c_str());
+#else
   dll_putenv(string("PYTHONPATH=" + _P("special://xbmc/system/python/DLLs") + ";" + _P("special://xbmc/system/python/Lib")).c_str());
   dll_putenv(string("PYTHONHOME=" + _P("special://xbmc/system/python")).c_str());
   dll_putenv(string("PATH=.;" + _P("special://xbmc") + ";" + _P("special://xbmc/system/python")).c_str());
+#endif
   //dll_putenv("PYTHONCASEOK=1");
   //dll_putenv("PYTHONDEBUG=1");
   //dll_putenv("PYTHONVERBOSE=2"); // "1" for normal verbose, "2" for more verbose ?
@@ -2098,6 +2106,7 @@ extern "C"
      if (!pFile)
        return -1;
 
+#ifdef HAS_DVD_DRIVE
 #ifndef __APPLE__
     if(request == DVD_READ_STRUCT || request == DVD_AUTH)
 #else
@@ -2111,6 +2120,7 @@ extern "C"
       return ret;
     }
     else
+#endif
     {
       CLog::Log(LOGWARNING, "%s - Unknown request type %ld", __FUNCTION__, request);
       return -1;
