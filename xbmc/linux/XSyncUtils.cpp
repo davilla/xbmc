@@ -25,7 +25,7 @@
 #include "XHandle.h"
 #include "XEventUtils.h"
 
-#if (defined(__APPLE__) && defined(__arm__)
+#if (defined(__APPLE__) && defined(__arm__))
   #include <utils/XBMC_cond.h>
   #include <utils/XBMC_mutex.h>
 #else
