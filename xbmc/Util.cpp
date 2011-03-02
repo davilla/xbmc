@@ -70,7 +70,11 @@
 #include "WIN32Util.h"
 #endif
 #if defined(__APPLE__)
-#include "CocoaInterface.h"
+#if defined(__arm__)
+#include "osx/iOSUtils.h"
+#else
+#include "osx/CocoaInterface.h"
+#endif
 #endif
 #include "GUIUserMessages.h"
 #include "filesystem/File.h"
@@ -494,15 +498,23 @@ void CUtil::GetHomePath(CStdString& strPath, const CStdString& strTarget)
     char     given_path[2*MAXPATHLEN];
     uint32_t path_size = 2*MAXPATHLEN;
 
-    result = _NSGetExecutablePath(given_path, &path_size);
+    #if defined(__arm__)
+      result = GetIOSExecutablePath(given_path, &path_size);
+    #else
+      result = _NSGetExecutablePath(given_path, &path_size);
+    #endif
     if (result == 0)
     {
       // Move backwards to last /.
       for (int n=strlen(given_path)-1; given_path[n] != '/'; n--)
         given_path[n] = '\0';
 
-      // Assume local path inside application bundle.
-      strcat(given_path, "../Resources/XBMC/");
+      #if defined(__arm__)
+        strcat(given_path, "/XBMCData/XBMCHome/");
+      #else
+        // Assume local path inside application bundle.
+        strcat(given_path, "../Resources/XBMC/");
+      #endif
 
       // Convert to real path.
       char real_path[2*MAXPATHLEN];
@@ -2165,7 +2177,11 @@ CStdString CUtil::ResolveExecutablePath()
   char     real_given_path[2*MAXPATHLEN];
   uint32_t path_size = 2*MAXPATHLEN;
 
-  result = _NSGetExecutablePath(given_path, &path_size);
+  #if defined(__arm__)
+    result = GetIOSExecutablePath(given_path, &path_size);
+  #else
+    result = _NSGetExecutablePath(given_path, &path_size);
+  #endif
   if (result == 0)
     realpath(given_path, real_given_path);
   strExecutablePath = real_given_path;
@@ -2184,6 +2200,28 @@ CStdString CUtil::ResolveExecutablePath()
 #endif
   return strExecutablePath;
 }
+
+#if defined(__APPLE__)
+CStdString CUtil::GetFrameworksPath(void)
+{
+  CStdString strFrameworksPath;
+  int      result = -1;
+  char     given_path[2*MAXPATHLEN];
+  char     real_given_path[2*MAXPATHLEN];
+  uint32_t path_size = 2*MAXPATHLEN;
+  #if defined(__arm__)
+    result = GetIOSFrameworkPath(given_path, &path_size);
+  #else
+    result = _NSGetExecutablePath(given_path, &path_size);
+  #endif
+  if (result == 0)
+    realpath(given_path, real_given_path);
+    
+  strFrameworksPath = real_given_path;
+
+  return strFrameworksPath;
+}
+#endif
 
 void CUtil::ScanForExternalSubtitles(const CStdString& strMovie, std::vector<CStdString>& vecSubtitles )
 {
