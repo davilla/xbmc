@@ -3,7 +3,7 @@ BUILDDIR=/Users/Shared/xbmc-depends/ios-4.2_arm7
 SUBDIRS = \
 	Backrow \
 	gas-preprocessor help2man autoconf automake pkg-config tar dpkg \
-	pcre expat gettext readline \
+	pcre expat gettext readline sqlite3 \
 	liblzo liblzo2 freetype2 fontconfig \
 	openssl libssh2 curl \
 	jpeg tiff libpng libogg \
