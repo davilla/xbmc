@@ -26,7 +26,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-#include "SDL_cond.h"
+#include "XBMC_cond.h"
 #include "log.h"
 
 /* Create a condition variable */

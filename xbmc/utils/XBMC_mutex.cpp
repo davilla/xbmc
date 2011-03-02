@@ -27,7 +27,7 @@
   #include <stdlib.h>
 #endif
 
-#include "SDL_mutex.h"
+#include "XBMC_mutex.h"
 #include "log.h"
 
 SDL_mutex *SDL_CreateMutex (void)

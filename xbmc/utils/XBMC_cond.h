@@ -25,7 +25,7 @@
 #define _SDL_cond_h
 
 #include <stdint.h>
-#include "SDL_mutex.h"
+#include "XBMC_mutex.h"
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /* Condition variable functions                                  */
