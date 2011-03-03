@@ -1062,7 +1062,6 @@ bool CVideoReferenceClock::UpdateRefreshrate(bool Forced /*= false*/)
 #elif defined(__APPLE__)
   #if defined(__arm__)
     int RefreshRate = round(g_Windowing.GetDisplayLinkFPS() + 0.5);
-    //int RefreshRate = MathUtils::round_int(g_Windowing.GetDisplayLinkFPS());
   #else
     int RefreshRate = MathUtils::round_int(Cocoa_GetCVDisplayLinkRefreshPeriod());
   #endif
