@@ -881,7 +881,6 @@
 		F56C8B77131F42ED000AD0F6 /* Util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F56C87F7131F42ED000AD0F6 /* Util.cpp */; };
 		F56C8B78131F42ED000AD0F6 /* ViewDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F56C87F9131F42ED000AD0F6 /* ViewDatabase.cpp */; };
 		F56C8B79131F42ED000AD0F6 /* XBApplicationEx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F56C87FB131F42ED000AD0F6 /* XBApplicationEx.cpp */; };
-		F56C8B7A131F42ED000AD0F6 /* xbmc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F56C87FD131F42ED000AD0F6 /* xbmc.cpp */; };
 		F56C8BA8131F4466000AD0F6 /* XBMC.png in Resources */ = {isa = PBXBuildFile; fileRef = F56C8B9E131F4466000AD0F6 /* XBMC.png */; };
 		F56C8BA9131F4466000AD0F6 /* XBMCApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = F56C8BA0131F4466000AD0F6 /* XBMCApplication.m */; };
 		F56C8BAA131F4466000AD0F6 /* XBMCController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F56C8BA2131F4466000AD0F6 /* XBMCController.mm */; };
@@ -2824,7 +2823,6 @@
 		F56C87FA131F42ED000AD0F6 /* ViewDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewDatabase.h; sourceTree = "<group>"; };
 		F56C87FB131F42ED000AD0F6 /* XBApplicationEx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XBApplicationEx.cpp; sourceTree = "<group>"; };
 		F56C87FC131F42ED000AD0F6 /* XBApplicationEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBApplicationEx.h; sourceTree = "<group>"; };
-		F56C87FD131F42ED000AD0F6 /* xbmc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = xbmc.cpp; sourceTree = "<group>"; };
 		F56C8B9E131F4466000AD0F6 /* XBMC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = XBMC.png; sourceTree = "<group>"; };
 		F56C8B9F131F4466000AD0F6 /* XBMCApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBMCApplication.h; sourceTree = "<group>"; };
 		F56C8BA0131F4466000AD0F6 /* XBMCApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBMCApplication.m; sourceTree = "<group>"; };
@@ -3688,7 +3686,6 @@
 				F56C87FA131F42ED000AD0F6 /* ViewDatabase.h */,
 				F56C87FB131F42ED000AD0F6 /* XBApplicationEx.cpp */,
 				F56C87FC131F42ED000AD0F6 /* XBApplicationEx.h */,
-				F56C87FD131F42ED000AD0F6 /* xbmc.cpp */,
 			);
 			path = xbmc;
 			sourceTree = "<group>";
@@ -6761,7 +6758,6 @@
 				F56C8B77131F42ED000AD0F6 /* Util.cpp in Sources */,
 				F56C8B78131F42ED000AD0F6 /* ViewDatabase.cpp in Sources */,
 				F56C8B79131F42ED000AD0F6 /* XBApplicationEx.cpp in Sources */,
-				F56C8B7A131F42ED000AD0F6 /* xbmc.cpp in Sources */,
 				F56C8BA9131F4466000AD0F6 /* XBMCApplication.m in Sources */,
 				F56C8BAA131F4466000AD0F6 /* XBMCController.mm in Sources */,
 				F56C8BAB131F4466000AD0F6 /* XBMCEAGLView.mm in Sources */,
