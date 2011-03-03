@@ -30,6 +30,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/timeb.h>
+#ifdef HAS_DVD_DRIVE
 #ifdef _LINUX
 #include <sys/ioctl.h>
 #ifndef __APPLE__
@@ -37,6 +38,7 @@
 #include <linux/cdrom.h>
 #else
 #include <IOKit/storage/IODVDMediaBSDClient.h>
+#endif
 #endif
 #endif
 #include <fcntl.h>

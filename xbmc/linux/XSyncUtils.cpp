@@ -26,8 +26,8 @@
 #include "XEventUtils.h"
 
 #if (defined(__APPLE__) && defined(__arm__))
-  #include <utils/XBMC_cond.h>
-  #include <utils/XBMC_mutex.h>
+  #include <threads/XBMC_cond.h>
+  #include <threads/XBMC_mutex.h>
 #else
   #ifdef __APPLE__
     #include <mach/mach.h>

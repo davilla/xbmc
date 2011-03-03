@@ -70,8 +70,8 @@ namespace ADDON
 #endif
 
 #if (defined(__APPLE__) && defined(__arm__))
-#include "utils/XBMC_cond.h"
-#include "utils/XBMC_mutex.h"
+#include "threads/XBMC_cond.h"
+#include "threads/XBMC_mutex.h"
 #else
 #ifdef HAS_SDL
 #include <SDL/SDL_mutex.h>

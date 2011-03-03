@@ -881,11 +881,11 @@ bool CApplication::InitDirectoriesOSX()
 
     // location for temp files
     #if defined(__arm__)
-      CStdString strTempPath = CUtil::AddFileToFolder(userHome,  "Library/Preferences/XBMC/temp");
+      CStdString strTempPath = URIUtils::AddFileToFolder(userHome,  "Library/Preferences/XBMC/temp");
     #else
-      CStdString strTempPath = CUtil::AddFileToFolder(userHome, ".xbmc/");
+      CStdString strTempPath = URIUtils::AddFileToFolder(userHome, ".xbmc/");
       CDirectory::Create(strTempPath);
-      strTempPath = CUtil::AddFileToFolder(userHome, ".xbmc/temp");
+      strTempPath = URIUtils::AddFileToFolder(userHome, ".xbmc/temp");
     #endif
     CSpecialProtocol::SetTempPath(strTempPath);
 
@@ -4697,7 +4697,7 @@ void CApplication::ProcessSlow()
 {
   g_powerManager.ProcessEvents();
 
-#if defined(__APPLE__)
+#if defined(__APPLE__) &&  !defined(__arm__)
   // There is an issue on OS X that several system services ask the cursor to become visible
   // during their startup routines.  Given that we can't control this, we hack it in by
   // forcing the

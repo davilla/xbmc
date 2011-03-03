@@ -22,7 +22,7 @@
 
 #include <memory>
 #include <CoreFoundation/CoreFoundation.h>
-if !defined(__arm__)
+#if !defined(__arm__)
 #include <Carbon/Carbon.h>
 #include <CoreServices/CoreServices.h>
 #else

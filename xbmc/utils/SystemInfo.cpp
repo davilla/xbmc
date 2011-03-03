@@ -739,7 +739,7 @@ bool CSysInfo::HasVDADecoder()
 {
   bool        result = false;
 
-#if defined(__APPLE__)
+#if defined(__APPLE__) && !defined(__arm__)
   result = Cocoa_HasVDADecoder();
 #endif
   return result;

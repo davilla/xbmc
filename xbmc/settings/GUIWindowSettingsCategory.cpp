@@ -73,7 +73,6 @@
 #include "HALManager.h"
 #endif
 #endif
-#ifdef __APPLE__
 #if defined(__APPLE__) 
 #if defined(__arm__)
 #include "IOSCoreAudio.h"

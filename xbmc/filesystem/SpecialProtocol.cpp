@@ -162,7 +162,7 @@ CStdString CSpecialProtocol::TranslatePath(const CURL &url)
   else if (RootDir.Equals("masterprofile"))
     URIUtils::AddFileToFolder(GetPath("masterprofile"), FileName, translatedPath);
   else if (RootDir.Equals("frameworks"))
-    CUtil::AddFileToFolder(GetPath("frameworks"), FileName, translatedPath);
+    URIUtils::AddFileToFolder(GetPath("frameworks"), FileName, translatedPath);
 
   // check if we need to recurse in
   if (URIUtils::IsSpecial(translatedPath))

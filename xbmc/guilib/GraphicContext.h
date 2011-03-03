@@ -161,6 +161,7 @@ public:
   void ApplyHardwareTransform();
   void RestoreHardwareTransform();
   void ClipRect(CRect &vertex, CRect &texture, CRect *diffuse = NULL);
+  void ClipToViewWindow();
   inline void ResetWindowTransform()
   {
     while (m_groupTransform.size())
