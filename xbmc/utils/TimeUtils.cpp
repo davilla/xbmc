@@ -80,16 +80,14 @@ unsigned int CTimeUtils::GetFrameTime()
 unsigned int CTimeUtils::GetTimeMS()
 {
 #ifdef _LINUX
-  double now_time;
-  //uint64_t now_time;
+  uint64_t now_time;
   static  uint64_t start_time = 0;
   #if defined(__APPLE__) && (defined(__ppc__) || defined(__arm__))
-    now_time = CVGetCurrentHostTime() *  1000.0f / CVGetHostClockFrequency();
+    now_time = CVGetCurrentHostTime() *  1000 / CVGetHostClockFrequency();
   #else
     struct timespec ts = {};
     clock_gettime(CLOCK_MONOTONIC, &ts);
-    now_time = (ts.tv_sec * 1000.0f) + (ts.tv_nsec / 1000000.0f);
-    //fprintf(stderr, " %lld\n", (uint64_t)now_time);
+    now_time = (ts.tv_sec * 1000) + (ts.tv_nsec / 1000000);
   #endif
     if (start_time == 0)
       start_time = now_time;
