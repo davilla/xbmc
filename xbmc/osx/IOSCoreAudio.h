@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2005-2009 Team XBMC
+ *      Copyright (C) 2010 Team XBMC
  *      http://www.xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -27,13 +27,10 @@
 #include <AudioToolbox/AudioToolbox.h>
 #include <AudioToolbox/AudioServices.h>
 #include <CoreAudio/CoreAudioTypes.h>
-#include <StdString.h>
 #include <list>
 #include <vector>
 
-#include <StdString.h>
-#include <list>
-#include <vector>
+#include "utils/StdString.h"
 
 #define kOutputBus 0
 #define kInputBus 1

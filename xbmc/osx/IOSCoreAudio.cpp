@@ -1,6 +1,5 @@
-#ifdef __APPLE__
 /*
- *      Copyright (C) 2005-2009 Team XBMC
+ *      Copyright (C) 2010 Team XBMC
  *      http://www.xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -19,12 +18,13 @@
  *  http://www.gnu.org/copyleft/gpl.html
  *
  */
-//#if !defined(__arm__)
+
+#if defined(__APPLE__) && defined(__arm__)
+#include <math.h>
 
 #include "IOSCoreAudio.h"
-#include <PlatformDefs.h>
-#include <Log.h>
-#include <math.h>
+#include "PlatformDefs.h"
+#include "utils/log.h"
 
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
@@ -550,5 +550,4 @@ bool CIOSCoreAudioDevice::SetSessionListener(AudioSessionPropertyID inID,
   return true;
 }
 
-//#endif
 #endif
