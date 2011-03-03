@@ -12,9 +12,9 @@ all: $(FLAC_LIB)
 
 ifeq ($(findstring osx,$(ARCH)), osx)
 $(FLAC_LIB): flac-1.2.1/src/libFLAC/.libs/libFLAC.a
-	$(CC) $(SYSROOT) -bundle -undefined dynamic_lookup -read_only_relocs suppress -fPIC \
-	-alias_list @abs_top_srcdir@/xbmc/cores/DllLoader/exports//wrapper_mach_alias \
-	-o $@ @abs_top_srcdir@/xbmc/cores/DllLoader/exports/wrapper.o flac-1.2.1/src/libFLAC/.libs/*.o
+	$(CC) $(SYSROOT) $(LDFLAGS) -bundle -undefined dynamic_lookup -read_only_relocs suppress -fPIC \
+	-Wl,-alias_list,@abs_top_srcdir@/xbmc/cores/DllLoader/exports/wrapper_mach_alias -o $@ \
+	@abs_top_srcdir@/xbmc/cores/DllLoader/exports/wrapper.o flac-1.2.1/src/libFLAC/.libs/*.o
 else
 ifneq (@USE_EXTERNAL_LIBFLAC@,1)
 $(FLAC_LIB): flac-1.2.1/src/libFLAC/.libs/libFLAC.a
