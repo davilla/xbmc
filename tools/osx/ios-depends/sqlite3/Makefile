@@ -11,8 +11,8 @@ LIBNAME=sqlite
 VERSION=3.6.11
 SOURCE=$(LIBNAME)-$(VERSION)
 # download location and format
-#BASE_URL=http://mirrors.xbmc.org/build-deps/darwin-libs
-BASE_URL=http://www.sqlite.org
+BASE_URL=http://mirrors.xbmc.org/build-deps/darwin-libs
+#BASE_URL=http://www.sqlite.org
 ARCHIVE=$(SOURCE).tar.gz
 
 RETRIEVE_TOOL=/usr/bin/curl

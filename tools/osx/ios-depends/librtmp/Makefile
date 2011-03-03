@@ -11,7 +11,8 @@ LIBNAME=rtmpdump
 VERSION=2.3
 SOURCE=$(LIBNAME)-$(VERSION)
 # download location and format
-BASE_URL=http://rtmpdump.mplayerhq.hu/download
+#BASE_URL=http://rtmpdump.mplayerhq.hu/download
+BASE_URL=http://mirrors.xbmc.org/build-deps/darwin-libs
 ARCHIVE=$(SOURCE).tgz
 
 RETRIEVE_TOOL=/usr/bin/curl
