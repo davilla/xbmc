@@ -1,5 +1,5 @@
 /*
-*      Copyright (C) 2005-2008 Team XBMC
+*      Copyright (C) 2009 Team XBMC
 *      http://www.xbmc.org
 *
 *  This Program is free software; you can redistribute it and/or modify
@@ -146,6 +146,7 @@ bool CRenderSystemGLES::DestroyRenderSystem()
       }
     }
     delete[] m_pGUIshader;
+    m_pGUIshader = NULL;
   }
 
   m_bRenderCreated = false;
