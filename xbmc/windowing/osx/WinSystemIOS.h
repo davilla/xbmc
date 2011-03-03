@@ -1,10 +1,5 @@
-#ifndef WINDOW_SYSTEM_IOSEGL_H
-#define WINDOW_SYSTEM_IOSEGL_H
-
-#pragma once
-
 /*
- *      Copyright (C) 2005-2008 Team XBMC
+ *      Copyright (C) 2010 Team XBMC
  *      http://www.xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -23,12 +18,18 @@
  *  http://www.gnu.org/copyleft/gpl.html
  *
  */
+
+#pragma once
+
+#ifndef WINDOW_SYSTEM_IOSEGL_H
+#define WINDOW_SYSTEM_IOSEGL_H
+
 #if defined(__APPLE__) && defined(__arm__)
 #include "WinSystem.h"
-#include "rendering/RenderSystemGLES.h"
+#include "rendering/gles/RenderSystemGLES.h"
 #include "utils/GlobalsHandling.h"
 
-class CWinSystemIOS : public CWinSystemBase, public CRenderSystemGLES
+class CWinSystemIOS : public CWinSystemBase, public CRenderSystemGLES, public virtual xbmcutil::Referenced
 {
 public:
   CWinSystemIOS();

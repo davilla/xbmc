@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2005-2008 Team XBMC
+ *      Copyright (C) 2010 Team XBMC
  *      http://www.xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -18,6 +18,7 @@
  *  http://www.gnu.org/copyleft/gpl.html
  *
  */
+
 #if defined(__APPLE__) && defined(__arm__)
 //hack around problem with xbmc's typedef int BOOL
 // and obj-c's typedef unsigned char BOOL
@@ -32,7 +33,6 @@
 #include "SpecialProtocol.h"
 #include "Settings.h"
 #include "Texture.h"
-#include "linux/XRandR.h"
 #include <vector>
 #undef BOOL
 
