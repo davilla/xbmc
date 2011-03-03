@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2005-2010 Team XBMC
+ *      Copyright (C) 2010 Team XBMC
  *      http://www.xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -29,8 +29,8 @@
 #include "DVDStreamInfo.h"
 #include "DVDCodecUtils.h"
 #include "DVDVideoCodecVideoToolBox.h"
-#include "Codecs/DllSwScale.h"
-#include "Codecs/DllAvFormat.h"
+#include "lib/DllSwScale.h"
+#include "lib/DllAvFormat.h"
 #include "utils/log.h"
 #include "utils/TimeUtils.h"
 #include "osx/iOSUtils.h"
