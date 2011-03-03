@@ -801,10 +801,6 @@ void CLinuxRendererGLES::RenderSinglePass(int index, int field)
   YUVFIELDS &fields = m_buffers[index].fields;
   YUVPLANES &planes = fields[field];
 
-  // set scissors if we are not in fullscreen video
-  if ( !(g_graphicsContext.IsFullScreenVideo() || g_graphicsContext.IsCalibrating() ))
-    g_graphicsContext.ClipToViewWindow();
-
   if (m_reloadShaders)
   {
     m_reloadShaders = 0;
@@ -912,10 +908,6 @@ void CLinuxRendererGLES::RenderMultiPass(int index, int field)
 
   YV12Image &im     = m_buffers[index].image;
   YUVPLANES &planes = m_buffers[index].fields[field];
-
-  // set scissors if we are not in fullscreen video
-  if ( !(g_graphicsContext.IsFullScreenVideo() || g_graphicsContext.IsCalibrating() ))
-    g_graphicsContext.ClipToViewWindow();
 
   if (m_reloadShaders)
   {
@@ -1102,10 +1094,6 @@ void CLinuxRendererGLES::RenderSoftware(int index, int field)
 {
   YUVPLANES &planes = m_buffers[index].fields[field];
 
-  // set scissors if we are not in fullscreen video
-  if ( !(g_graphicsContext.IsFullScreenVideo() || g_graphicsContext.IsCalibrating() ))
-    g_graphicsContext.ClipToViewWindow();
-
   glDisable(GL_DEPTH_TEST);
 
   // Y
@@ -1167,10 +1155,6 @@ void CLinuxRendererGLES::RenderOpenMax(int index, int field)
 {
 #if defined(HAVE_LIBOPENMAX)
   GLuint textureId = m_buffers[index].openMaxBuffer->texture_id;
-
-  // set scissors if we are not in fullscreen video
-  if ( !(g_graphicsContext.IsFullScreenVideo() || g_graphicsContext.IsCalibrating() ))
-    g_graphicsContext.ClipToViewWindow();
 
   glDisable(GL_DEPTH_TEST);
 
@@ -1236,10 +1220,6 @@ void CLinuxRendererGLES::RenderCoreVideoRef(int index, int field)
 {
 #ifdef HAVE_VIDEOTOOLBOXDECODER
   YUVPLANE &plane = m_buffers[index].fields[field][0];
-
-  // set scissors if we are not in fullscreen video
-  if ( !(g_graphicsContext.IsFullScreenVideo() || g_graphicsContext.IsCalibrating() ))
-    g_graphicsContext.ClipToViewWindow();
 
   glDisable(GL_DEPTH_TEST);
 
