@@ -1,5 +1,5 @@
 /*
- *      Copyright (C) 2005-2009 Team XBMC
+ *      Copyright (C) 2010 Team XBMC
  *      http://www.xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -19,14 +19,14 @@
  *
  */
 
-#ifndef __COREAUDIO_RENDERER_H__
-#define __COREAUDIO_RENDERER_H__
-//#include <osx/CoreAudio.h>
+#ifndef __IOSAUDIO_RENDERER_H__
+#define __IOSAUDIO_RENDERER_H__
+
 #include "IOSCoreAudio.h"
 #include "PlatformDefs.h"
 #include "IAudioRenderer.h"
-#include <utils/Event.h>
-#include <utils/LockFree.h>
+#include "threads/Event.h"
+#include "threads/LockFree.h"
 
 class DllAvUtil;
 struct AVFifoBuffer;

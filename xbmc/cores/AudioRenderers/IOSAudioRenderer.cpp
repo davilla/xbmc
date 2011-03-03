@@ -1,6 +1,6 @@
 #ifdef __APPLE__
 /*
- *      Copyright (C) 2005-2009 Team XBMC
+ *      Copyright (C) 2010 Team XBMC
  *      http://www.xbmc.org
  *
  *  This Program is free software; you can redistribute it and/or modify
@@ -24,10 +24,10 @@
 #include "AudioContext.h"
 #include "GUISettings.h"
 #include "Settings.h"
-#include "utils/Atomics.h"
+#include "threads/Atomics.h"
 #include "utils/log.h"
 #include "utils/TimeUtils.h"
-#include "dvdplayer/Codecs/DllAvCodec.h"
+#include "lib/DllAvCodec.h"
 
 //***********************************************************************************************
 // Contruction/Destruction
