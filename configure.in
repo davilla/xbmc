@@ -1870,7 +1870,7 @@ fi
 XB_CONFIG_MODULE([lib/libapetag], [
   if test "$host_vendor" = "apple" ; then
     CFLAGS="$CFLAGS -fno-common" \
-    ./configure \
+    ./configure --disable-shared \
       --host=$host_alias \
       --build=$build_alias \
       --target=$target_alias CFLAGS="$CFLAGS" CC="$CC" CXX="$CXX"
