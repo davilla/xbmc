@@ -231,13 +231,13 @@ void CGUITextureGLES::DrawQuad(const CRect &rect, color_t color, CBaseTexture *t
 
   VerifyGLState();
 
-  GLfloat col[4][4];
-  GLubyte ver[4][3];
+  GLubyte col[4][4];
+  GLfloat ver[4][3];
   GLfloat tex[4][2];
   GLubyte idx[4] = {0, 1, 3, 2};        //determines order of triangle strip
 
   if (texture)
-   g_Windowing.EnableGUIShader(SM_TEXTURE);
+    g_Windowing.EnableGUIShader(SM_TEXTURE);
   else
     g_Windowing.EnableGUIShader(SM_DEFAULT);
 
