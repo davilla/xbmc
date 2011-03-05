@@ -71,7 +71,7 @@ There are two relevant build targets : Release and Debug. Compile always for dev
 end not simulator.
 
 -----------------------------------------------------------------------------
-4.2 Using Terminal (command-line) (this is a work in progress and might fail)
+4.2 Using Terminal (command-line)
 -----------------------------------------------------------------------------
 
  $ cd $HOME/XBMC
