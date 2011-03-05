@@ -133,16 +133,7 @@ public:
   }
 #endif
 
-#ifdef HAVE_LIBOPENMAX
-  void AddProcessor(COpenMaxVideo *openmax, DVDVideoPicture *picture)
-  {
-    CSharedLock lock(m_sharedSection);
-    if (m_pRenderer)
-      m_pRenderer->AddProcessor(openmax, picture);
-  }
-#endif
-
-#ifdef HAVE_LIBCOREVIDEO
+#ifdef HAVE_VIDEOTOOLBOXDECODER
   void AddProcessor(CDVDVideoCodecVideoToolBox* vtb, DVDVideoPicture *picture)
   {
     CSharedLock lock(m_sharedSection);

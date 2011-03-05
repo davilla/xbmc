@@ -45,7 +45,7 @@
 #include "RenderCapture.h"
 #include "yuv2rgb.neon.h"
 #ifdef HAVE_VIDEOTOOLBOXDECODER
-#include "../dvdplayer/DVDCodecs/Video/DVDVideoCodecVideoToolBox.h"
+#include "DVDCodecs/Video/DVDVideoCodecVideoToolBox.h"
 #include <CoreVideo/CoreVideo.h>
 #endif
 

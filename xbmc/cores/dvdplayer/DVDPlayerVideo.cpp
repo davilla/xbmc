@@ -930,7 +930,7 @@ void CDVDPlayerVideo::ProcessOverlays(DVDVideoPicture* pSource, YV12Image* pDest
   else if(pSource->format == DVDVideoPicture::FMT_OMXEGL)
     g_renderManager.AddProcessor(pSource->openMax, pSource);
 #endif
-#ifdef HAVE_LIBCOREVIDEO
+#ifdef HAVE_VIDEOTOOLBOXDECODER
   else if(pSource->format == DVDVideoPicture::FMT_CVBREF)
     g_renderManager.AddProcessor(pSource->vtb, pSource);
 #endif

@@ -26,11 +26,11 @@
 
 #include "xbmc/guilib/FrameBufferObject.h"
 #include "xbmc/guilib/Shader.h"
-#include "../../settings/VideoSettings.h"
+#include "settings/VideoSettings.h"
 #include "RenderFlags.h"
 #include "guilib/GraphicContext.h"
 #include "BaseRenderer.h"
-#include "../dvdplayer/DVDCodecs/Video/DVDVideoCodec.h"
+#include "DVDCodecs/Video/DVDVideoCodec.h"
 
 class CRenderCapture;
 
