@@ -1331,8 +1331,6 @@ void CLinuxRendererGLES::UploadYV12Texture(int source)
 
 #if defined(HAVE_LIBOPENMAX)
   if (!(im->flags&IMAGE_FLAG_READY) || m_buffers[source].openMaxBuffer)
-#elif defined(HAVE_VIDEOTOOLBOXDECODER)
-  if (!(im->flags&IMAGE_FLAG_READY) || m_buffers[source].cvBufferRef)
 #else
   if (!(im->flags&IMAGE_FLAG_READY))
 #endif
