@@ -1,15 +1,30 @@
 #!/bin/sh
 
-if [ ! -d XBMC.app ]; then
-  echo "XBMC.app not found! copy it from build dir to here -> `pwd`"
+# usage: ./mkdeb-xbmc-ios.sh release/debug (case insensitive)
+
+SWITCH=`echo $1 | tr [A-Z] [a-z]`
+
+if [ $SWITCH = "debug" ]; then
+  echo "Packaging Debug target for iOS"
+  XBMC="../../../../build/Debug-iphoneos/XBMC.app"
+elif [ $SWITCH = "release" ]; then
+  echo "Packaging Release target for iOS"
+  XBMC="../../../../build/Release-iphoneos/XBMC.app"
+else
+  echo "You need to specify the build target"
+  exit 1 
+fi  
+
+if [ ! -d $XBMC ]; then
+  echo "XBMC.app not found! are you sure you built $1 target?"
   exit 1
 fi
 if [ -f "/usr/bin/sudo" ]; then
   SUDO="/usr/bin/sudo"
 fi
-if [ -f "../../ios-depends/build/bin/dpkg-deb" ]; then
+if [ -f "/Users/Shared/xbmc-depends/ios-4.2_arm7/bin/dpkg-deb" ]; then
   # make sure we pickup our tar, gnutar will fail when dpkg -i
-  bin_path=$(cd ../../ios-depends/build/bin; pwd)
+  bin_path=$(cd /Users/Shared/xbmc-depends/ios-4.2_arm7/bin; pwd)
   export PATH=${bin_path}:${PATH}
 fi
 
@@ -49,7 +64,7 @@ chmod +x $PACKAGE/DEBIAN/postinst
 
 # prep XBMC.app
 mkdir -p $PACKAGE/Applications
-cp -r XBMC.app $PACKAGE/Applications/
+cp -r $XBMC $PACKAGE/Applications/
 find $PACKAGE/Applications/ -name '.svn' -exec rm -rf {} \;
 find $PACKAGE/Applications/ -name '.gitignore' -exec rm -rf {} \;
 find $PACKAGE/Applications/ -name '.DS_Store'  -exec rm -rf {} \;

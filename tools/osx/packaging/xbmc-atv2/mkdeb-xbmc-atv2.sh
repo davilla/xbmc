@@ -1,15 +1,29 @@
 #!/bin/sh
+# usage: ./mkdeb-xbmc-atv2.sh release/debug (case insensitive)
 
-if [ ! -d XBMC.frappliance ]; then
-  echo "XBMC.frappliance not found! copy it from build dir to here -> `pwd`"
+SWITCH=`echo $1 | tr [A-Z] [a-z]`
+
+if [ $SWITCH = "debug" ]; then
+  echo "Packaging Debug target for ATV2"
+  XBMC="../../../../build/Debug-iphoneos/XBMC.frappliance"
+elif [ $SWITCH = "release" ]; then
+  echo "Packaging Release target for ATV2"
+  XBMC="../../../../build/Release-iphoneos/XBMC.frappliance"
+else
+  echo "You need to specify the build target"
+  exit 1 
+fi 
+
+if [ ! -d $XBMC ]; then
+  echo "XBMC.frappliance not found! are you sure you built $1 target?"
   exit 1
 fi
 if [ -f "/usr/bin/sudo" ]; then
   SUDO="/usr/bin/sudo"
 fi
-if [ -f "../../ios-depends/build/bin/dpkg-deb" ]; then
+if [ -f "/Users/Shared/xbmc-depends/ios-4.2_arm7/bin/dpkg-deb" ]; then
   # make sure we pickup our tar, gnutar will fail when dpkg -i
-  bin_path=$(cd ../../ios-depends/build/bin; pwd)
+  bin_path=$(cd /Users/Shared/xbmc-depends/ios-4.2_arm7/bin/dpkg-deb; pwd)
   export PATH=${bin_path}:${PATH}
 fi
 
@@ -60,7 +74,7 @@ chmod +x $PACKAGE/DEBIAN/postinst
 
 # prep XBMC.frappliance
 mkdir -p $PACKAGE/Applications
-cp -r XBMC.frappliance $PACKAGE/Applications/
+cp -r $XBMC $PACKAGE/Applications/
 find $PACKAGE/Applications/ -name '.svn' -exec rm -rf {} \;
 find $PACKAGE/Applications/ -name '.gitignore' -exec rm -rf {} \;
 find $PACKAGE/Applications/ -name '.DS_Store'  -exec rm -rf {} \;
