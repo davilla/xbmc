@@ -23,7 +23,7 @@ if [ -f "/usr/bin/sudo" ]; then
 fi
 if [ -f "/Users/Shared/xbmc-depends/ios-4.2_arm7/bin/dpkg-deb" ]; then
   # make sure we pickup our tar, gnutar will fail when dpkg -i
-  bin_path=$(cd /Users/Shared/xbmc-depends/ios-4.2_arm7/bin/dpkg-deb; pwd)
+  bin_path=$(cd /Users/Shared/xbmc-depends/ios-4.2_arm7/bin; pwd)
   export PATH=${bin_path}:${PATH}
 fi
 
