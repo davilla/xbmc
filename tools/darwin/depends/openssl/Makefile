@@ -12,7 +12,11 @@ ifeq ($(DARWIN), ios)
   # No darwin-arm-cc so use darwin-i386-cc and patch files after configure
   CONFIGURE=./Configure darwin-i386-cc zlib no-asm no-krb5 shared --openssldir=$(PREFIX)
 else
-  CONFIGURE=./Configure darwin-$(ARCH)-cc zlib no-asm no-krb5 shared --openssldir=$(PREFIX)
+  ifeq ($(ARCH), x86_64)
+    CONFIGURE=./Configure darwin64-$(ARCH)-cc zlib no-asm no-krb5 shared --openssldir=$(PREFIX)
+  else
+    CONFIGURE=./Configure darwin-$(ARCH)-cc zlib no-asm no-krb5 shared --openssldir=$(PREFIX)
+  endif
 endif
 
 LIBDYLIB=$(SOURCE)/src/.libs/lib$(LIBNAME).dylib

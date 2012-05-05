@@ -2,9 +2,10 @@ include ../Makefile.include
 
 # lib name, version
 LIBNAME=SDL
-VERSION=1.2.13
+VERSION=1.2.14
 SOURCE=$(LIBNAME)-$(VERSION)
 ARCHIVE=$(SOURCE).tar.gz
+BASE_URL=http://www.libsdl.org/release
 
 # configuration settings
 CONFIGURE=./configure --prefix=$(PREFIX) \
@@ -22,7 +23,7 @@ $(SOURCE): $(TARBALLS_LOCATION)/$(ARCHIVE)
 	rm -rf $(SOURCE)
 	$(ARCHIVE_TOOL) $(ARCHIVE_TOOL_FLAGS) $(TARBALLS_LOCATION)/$(ARCHIVE)
 	echo $(SOURCE) > .gitignore
-	cd $(SOURCE); patch -p0 < ../01-SDL_SetWidthHeight.patch
+	#cd $(SOURCE); patch -p0 < ../01-SDL_SetWidthHeight.patch
 	cd $(SOURCE); $(CONFIGURE)
 
 $(LIBDYLIB): $(SOURCE)

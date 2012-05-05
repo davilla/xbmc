@@ -5,29 +5,35 @@ if test "@use_sdk@" = "10.4" ; then
   else
     host_alias=i386-apple-darwin8
   fi
-  platform_gcc_version=4.0
   platform_sdk_version=@use_sdk@u
+  platform_gnu=gnu89
+  platform_cpp=cpp-4.0
+  platform_cxx=g++-4.0
+  platform_cc=gcc-4.0
 else
-  host_alias=i686-apple-darwin
-  platform_gcc_version=4.2
+  host_alias=@use_arch@-apple-darwin
   platform_sdk_version=@use_sdk@
+  platform_gnu=gnu99
+  platform_cpp=cpp-4.2
+  platform_cxx=g++-4.2
+  platform_cc=gcc-4.2
 fi
 
-platform_min_version=macosx-version-min=10.4
+platform_min_version=macosx-version-min=@use_sdk@
 platform_path="/Developer"
 platform_os_cflags="-arch @use_arch@ -no_compact_linkedit"
 platform_os_ldflags="-arch @use_arch@ -Wl,-arch,@use_arch@ -no_compact_linkedit"
 platform_sdk_path="${platform_path}/SDKs/MacOSX${platform_sdk_version}.sdk"
 
 export NM=${platform_path}/usr/bin/nm
-export CPP=${platform_path}/usr/bin/cpp-${platform_gcc_version}
+export CPP=${platform_path}/usr/bin/${platform_cpp}
 export CXXCPP=${CPP}
 export CPPFLAGS="${CPPFLAGS} -no-cpp-precomp -I${prefix}/include -m${platform_min_version} -isysroot ${platform_sdk_path} ${platform_os_cflags}"
-export CC=/usr/bin/gcc-${platform_gcc_version}
-export CFLAGS="${CFLAGS} -std=gnu89 -no-cpp-precomp -m${platform_min_version} -isysroot ${platform_sdk_path} ${platform_os_cflags}"
+export CC=/usr/bin/${platform_cc}
+export CFLAGS="${CFLAGS} -std=${platform_gnu} -no-cpp-precomp -m${platform_min_version} -isysroot ${platform_sdk_path} ${platform_os_cflags}"
 export LD=${platform_path}/usr/bin/ld
 export LDFLAGS="${LDFLAGS} -m${platform_min_version} -isysroot ${platform_sdk_path} ${platform_os_ldflags} -L${prefix}/lib"
-export CXX=/usr/bin/g++-${platform_gcc_version}
+export CXX=/usr/bin/${platform_cxx}
 export CXXFLAGS="${CXXFLAGS} -m${platform_min_version} -isysroot ${platform_sdk_path} ${platform_os_cflags}"
 export AR=${platform_path}/usr/bin/ar
 export AS=${platform_path}/usr/bin/as
@@ -39,7 +45,7 @@ export LIBTOOL=@use_toolchain@/bin/glibtool
 export LIBTOOLIZE=@use_toolchain@/bin/glibtoolize
 export PKG_CONFIG_PATH=${prefix}/lib/pkgconfig:${platform_sdk_path}/usr/lib/pkgconfig
 export PATH="@use_toolchain@/bin:${prefix}/bin:${platform_path}/usr/bin:/Developer/usr/bin:${PATH}"
-export MACOSX_DEPLOYMENT_TARGET=10.4
+export MACOSX_DEPLOYMENT_TARGET=@use_sdk@
 
 # tweaks for samba
 if test "${PACKAGE_NAME}" = "Samba" ; then
