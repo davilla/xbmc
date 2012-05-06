@@ -27,6 +27,7 @@ $(SOURCE): $(TARBALLS_LOCATION)/$(ARCHIVE)
 	sed -ie "s|CC = cc|CC = $(CC.ARCH)|" "$(SOURCE)/config/Makefile.darwin"
 	sed -ie "s|LD = cc|LD = $(CC.ARCH)|" "$(SOURCE)/config/Makefile.darwin"
 	sed -ie "s|LDFLAGS.EXTRA =|LDFLAGS.EXTRA = \$(LDFLAGS.ARCH)|" "$(SOURCE)/config/Makefile.darwin"
+	sed -ie "s|CFLAGS.EXTRA =|CFLAGS.EXTRA = \$(CFLAGS.ARCH)|" "$(SOURCE)/config/Makefile.darwin"
 	echo $(SOURCE) > .gitignore
 
 $(LIBDYLIB): $(SOURCE)
