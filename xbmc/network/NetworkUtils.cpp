@@ -26,7 +26,10 @@
 
 #if defined(TARGET_WINDOWS)
   // best attempt for window headers
+  #include <winsock2.h>
+  #include <iphlpapi.h>
   #include <IcmpAPI.h>
+  #include <WS2tcpip.h>
   // undefine if you want to build without the wlan stuff
   // might be needed for VS2003
   #define HAS_WIN32_WLAN_API
@@ -293,12 +296,6 @@ int CNetworkUtils::CreateTCPServerSocket(const int port, const bool bindLocal, c
   struct sockaddr_in  *s4;
   int    sock;
   bool   v4_fallback = false;
-#ifdef TARGET_WINDOWS
-  // Windows XP and earlier don't support the IPV6_V6ONLY socket option
-  // so always fall back to IPv4 directly to keep old functionality
-  if (CSysInfo::GetWindowsVersion() <= CSysInfo::WindowsVersionWinXP)
-    v4_fallback = true;
-#endif
 
 #ifdef WINSOCK_VERSION
   int yes = 1;

@@ -52,7 +52,7 @@ ConnectionList CWinNetworkManager::GetConnections()
 
   adapterInfo = (IP_ADAPTER_INFO *) malloc(sizeof (IP_ADAPTER_INFO));
   if (adapterInfo == NULL) 
-    return;
+    return connections;
 
   if (GetAdaptersInfo(adapterInfo, &ulOutBufLen) == ERROR_BUFFER_OVERFLOW) 
   {
@@ -61,7 +61,7 @@ ConnectionList CWinNetworkManager::GetConnections()
     if (adapterInfo == NULL) 
     {
       OutputDebugString("Error allocating memory needed to call GetAdaptersinfo\n");
-      return;
+      return connections;
     }
   }
 
@@ -71,7 +71,6 @@ ConnectionList CWinNetworkManager::GetConnections()
     while (adapter) 
     {
       connections.push_back(CConnectionPtr(new CWinConnection(*adapter)));
-
       adapter = adapter->Next;
     }
   }

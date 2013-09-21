@@ -34,7 +34,7 @@ CWinConnection::~CWinConnection()
 
 std::string CWinConnection::GetName() const
 {
-  return adapter.Description;
+  return m_adapter.Description;
 }
 
 std::string CWinConnection::GetAddress() const
@@ -104,7 +104,7 @@ EncryptionType CWinConnection::GetEncryption() const
   return NETWORK_CONNECTION_ENCRYPTION_NONE;
 }
 
-unsigned int CWinConnection::GetConnectionSpeed() const
+unsigned int CWinConnection::GetSpeed() const
 {
   return 100;
 }
