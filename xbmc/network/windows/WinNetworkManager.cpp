@@ -20,7 +20,7 @@
  */
 
 #include "WinNetworkManager.h"
-#ifdef _WIN32
+#if defined(TARGET_WINDOWS)
 #include "WinConnection.h"
 
 CWinNetworkManager::CWinNetworkManager()

@@ -21,7 +21,7 @@
  */
 
 #include "system.h"
-#ifdef _WIN32
+#if defined(TARGET_WINDOWS)
 #include "xbmc/network/INetworkManager.h"
 
 class CWinNetworkManager : public INetworkManager

@@ -21,7 +21,7 @@
  */
 
 #include "system.h"
-#ifdef _WIN32
+#if defined(TARGET_WINDOWS)
 #include "xbmc/network/IConnection.h"
 #include "Iphlpapi.h"
 
@@ -48,6 +48,8 @@ public:
   virtual EncryptionType  GetEncryption() const;
   virtual bool            Connect(IPassphraseStorage *storage, const CIPConfig &ipconfig);
 private:
+  void GetNameServerInternal();
   IP_ADAPTER_INFO m_adapter;
+  std::string m_nameserver;
 };
 #endif

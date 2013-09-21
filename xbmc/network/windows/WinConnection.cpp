@@ -22,10 +22,13 @@
 
 #include "WinConnection.h"
 #include "xbmc/utils/StdString.h"
+#include "utils/StringUtils.h"
+#include "utils/log.h"
 
 CWinConnection::CWinConnection(IP_ADAPTER_INFO adapter)
 {
   m_adapter = adapter;
+  GetNameServerInternal();
 }
 
 CWinConnection::~CWinConnection()
@@ -54,18 +57,19 @@ std::string CWinConnection::GetGateway() const
 
 std::string CWinConnection::GetNameServer() const
 {
-  std::string nameserver("127.0.0.1");
-  return nameserver;
+  return m_nameserver;
 }
 
 std::string CWinConnection::GetMacAddress() const
 {
-  return std::string((char*)m_adapter.Address);
+  std::string result;
+  result = StringUtils::Format("%02X:%02X:%02X:%02X:%02X:%02X", m_adapter.Address[0], m_adapter.Address[1], m_adapter.Address[2], m_adapter.Address[3], m_adapter.Address[4], m_adapter.Address[5]);
+  return result;
 }
 
 void CWinConnection::GetMacAddressRaw(char rawMac[6]) const
 {
-  // fixme
+  memcpy(rawMac, m_adapter.Address, 6);
 }
 
 std::string CWinConnection::GetInterfaceName() const
@@ -112,4 +116,47 @@ unsigned int CWinConnection::GetSpeed() const
 bool CWinConnection::Connect(IPassphraseStorage *storage, const CIPConfig &ipconfig)
 {
   return false;
+}
+
+void CWinConnection::GetNameServerInternal()
+{
+  m_nameserver = "127.0.0.1";
+
+  FIXED_INFO *pFixedInfo;
+  ULONG ulOutBufLen;
+  //IP_ADDR_STRING *pIPAddr;
+
+  pFixedInfo = (FIXED_INFO *) malloc(sizeof (FIXED_INFO));
+  if (pFixedInfo == NULL)
+  {
+    CLog::Log(LOGERROR,"Error allocating memory needed to call GetNetworkParams");
+    return;
+  }
+  ulOutBufLen = sizeof (FIXED_INFO);
+  if (GetNetworkParams(pFixedInfo, &ulOutBufLen) == ERROR_BUFFER_OVERFLOW)
+  {
+    free(pFixedInfo);
+    pFixedInfo = (FIXED_INFO *) malloc(ulOutBufLen);
+    if (pFixedInfo == NULL)
+    {
+      CLog::Log(LOGERROR,"Error allocating memory needed to call GetNetworkParams");
+      return;
+    }
+  }
+
+  if (GetNetworkParams(pFixedInfo, &ulOutBufLen) == NO_ERROR)
+  {
+    m_nameserver = pFixedInfo->DnsServerList.IpAddress.String;
+    // keep if we want more than the first nameserver
+    /*pIPAddr = pFixedInfo->DnsServerList.Next;
+    while(pIPAddr)
+    {
+      result.push_back(pIPAddr->IpAddress.String);
+      pIPAddr = pIPAddr->Next;
+    }*/
+
+  }
+  free(pFixedInfo);
+
+  return;
 }
