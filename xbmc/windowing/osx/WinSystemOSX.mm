@@ -80,9 +80,9 @@
 -(void) mouseUp:(NSEvent *) theEvent;
 -(void) rightMouseUp:(NSEvent *) theEvent;
 -(void) otherMouseUp:(NSEvent *) theEvent;
-*/
+
 -(void) mouseMoved:(NSEvent *) theEvent;
-/*
+
 -(void) mouseDragged:(NSEvent *) theEvent;
 -(void) rightMouseDragged:(NSEvent *) theEvent;
 -(void) otherMouseDragged:(NSEvent *) theEvent;
@@ -363,10 +363,10 @@
   //}
 }
 
-- (void)mouseMoved:(NSEvent *)theEvent
+/*- (void)mouseMoved:(NSEvent *)theEvent
 {
   NSLog(@"mouseMoved");
-}
+}*/
 
 @end
 
