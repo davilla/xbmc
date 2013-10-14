@@ -1957,4 +1957,16 @@ std::string CWinSystemOSX::GetClipboardText(void)
   return utf8_text;
 }
 
+float CWinSystemOSX::FlipY(float y)
+{
+  // TODO hook height and width up to resize events of window and cache them as member
+  if (m_windowData && m_windowData->nswindow)
+  {
+    NSWindow *win = (NSWindow *)m_windowData->nswindow;
+    NSRect frame = [[win contentView] frame];
+    y = frame.size.height - y;
+  }
+  return y;
+}
+
 #endif

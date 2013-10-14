@@ -302,7 +302,10 @@ NSEvent* InputEventHandler(NSEvent *nsevent)
   CWinEventsOSX *winEvents = g_Windowing.GetEvents();
   
   // The incoming mouse position.
-  CGPoint location = CGEventGetLocation(event);
+  NSPoint location = [nsevent locationInWindow];
+  // cocoa world is upside down ...
+  location.y = g_Windowing.FlipY(location.y);
+  
   UniChar unicodeString[10];
   UniCharCount actualStringLength;
   CGKeyCode keycode;
