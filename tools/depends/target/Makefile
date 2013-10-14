@@ -29,7 +29,7 @@ ifeq ($(OS),ios)
 endif
 
 ifeq ($(OS),osx)
-  DEPENDS += libGLEW libsdl libcrystalhd
+  DEPENDS += libGLEW libcrystalhd
   EXCLUDED_DEPENDS = libusb
 endif
 

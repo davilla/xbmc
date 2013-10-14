@@ -24,7 +24,7 @@
 
 #include "system.h"
 
-#ifdef HAS_SDL
+#if defined(HAS_SDL) && !defined(TARGET_DARWIN_OSX)
 #include <SDL/SDL_events.h>
 
 #include "WinEvents.h"

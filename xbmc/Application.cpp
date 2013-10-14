@@ -102,7 +102,7 @@
 #include "input/XBMC_vkeys.h"
 #include "input/MouseStat.h"
 
-#ifdef HAS_SDL
+#if defined(HAS_SDL) && !defined(TARGET_DARWIN_OSX)
 #include <SDL/SDL.h>
 #endif
 
@@ -850,7 +850,7 @@ bool CApplication::Create()
 bool CApplication::CreateGUI()
 {
   m_renderGUI = true;
-#ifdef HAS_SDL
+#if defined(HAS_SDL) && !defined(TARGET_DARWIN_OSX)
   CLog::Log(LOGNOTICE, "Setup SDL");
 
   /* Clean up on exit, exit on window close and interrupt */
@@ -885,7 +885,7 @@ bool CApplication::CreateGUI()
   m_bSystemScreenSaverEnable = g_Windowing.IsSystemScreenSaverEnabled();
   g_Windowing.EnableSystemScreenSaver(false);
 
-#ifdef HAS_SDL
+#if defined(HAS_SDL) && !defined(TARGET_DARWIN_OSX)
   if (SDL_Init(sdlFlags) != 0)
   {
     CLog::Log(LOGFATAL, "XBAppEx: Unable to initialize SDL: %s", SDL_GetError());

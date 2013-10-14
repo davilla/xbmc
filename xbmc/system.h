@@ -148,9 +148,6 @@
 #if defined(TARGET_DARWIN)
   #if defined(TARGET_DARWIN_OSX)
     #define HAS_GL
-    #define HAS_SDL
-    #define HAS_SDL_OPENGL
-    #define HAS_SDL_WIN_EVENTS
   #endif
   #define HAS_ZEROCONF
   #define HAS_LINUX_NETWORK

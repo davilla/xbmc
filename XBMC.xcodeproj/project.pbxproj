@@ -265,7 +265,6 @@
 		7C6EB6FA155F32C30080368A /* HTTPImageHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C6EB6F8155F32C30080368A /* HTTPImageHandler.cpp */; };
 		7C779E3A104A57E500F444C4 /* RenderSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C779E1F104A57E500F444C4 /* RenderSystem.cpp */; };
 		7C779E3B104A57E500F444C4 /* RenderSystemGL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C779E21104A57E500F444C4 /* RenderSystemGL.cpp */; };
-		7C779E3C104A57E500F444C4 /* WinEventsSDL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C779E27104A57E500F444C4 /* WinEventsSDL.cpp */; };
 		7C779E3D104A57E500F444C4 /* WinSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C779E29104A57E500F444C4 /* WinSystem.cpp */; };
 		7C779E3E104A57E500F444C4 /* WinSystemOSX.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7C779E2B104A57E500F444C4 /* WinSystemOSX.mm */; };
 		7C779E3F104A57E500F444C4 /* WinSystemOSXGL.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7C779E2D104A57E500F444C4 /* WinSystemOSXGL.mm */; };
@@ -1469,7 +1468,6 @@
 		DFF0F41917528350002DA3A4 /* GUIViewState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF64FE3716C07AAA00D028FB /* GUIViewState.cpp */; };
 		DFF0F41A17528350002DA3A4 /* ViewDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF64FE3A16C07AAA00D028FB /* ViewDatabase.cpp */; };
 		DFF0F41B17528350002DA3A4 /* ViewStateSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF89901F1709BB5400B35C21 /* ViewStateSettings.cpp */; };
-		DFF0F41C17528350002DA3A4 /* WinEventsSDL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C779E27104A57E500F444C4 /* WinEventsSDL.cpp */; };
 		DFF0F41D17528350002DA3A4 /* WinSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C779E29104A57E500F444C4 /* WinSystem.cpp */; };
 		DFF0F41E17528350002DA3A4 /* GUIMediaWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E38E17F00D25F9FA00618676 /* GUIMediaWindow.cpp */; };
 		DFF0F41F17528350002DA3A4 /* GUIWindowDebugInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F558F29413ABD7DF00631E12 /* GUIWindowDebugInfo.cpp */; };
@@ -2895,7 +2893,6 @@
 		E499149D174E606E00741B6D /* GUIViewState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF64FE3716C07AAA00D028FB /* GUIViewState.cpp */; };
 		E499149E174E606E00741B6D /* ViewDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF64FE3A16C07AAA00D028FB /* ViewDatabase.cpp */; };
 		E499149F174E606E00741B6D /* ViewStateSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DF89901F1709BB5400B35C21 /* ViewStateSettings.cpp */; };
-		E49914A0174E606E00741B6D /* WinEventsSDL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C779E27104A57E500F444C4 /* WinEventsSDL.cpp */; };
 		E49914A1174E606E00741B6D /* WinSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7C779E29104A57E500F444C4 /* WinSystem.cpp */; };
 		E49914A2174E607200741B6D /* GUIMediaWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E38E17F00D25F9FA00618676 /* GUIMediaWindow.cpp */; };
 		E49914A3174E607200741B6D /* GUIWindowDebugInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F558F29413ABD7DF00631E12 /* GUIWindowDebugInfo.cpp */; };
@@ -3709,8 +3706,6 @@
 		7C779E22104A57E500F444C4 /* RenderSystemGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderSystemGL.h; sourceTree = "<group>"; };
 		7C779E25104A57E500F444C4 /* WindowingFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindowingFactory.h; sourceTree = "<group>"; };
 		7C779E26104A57E500F444C4 /* WinEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinEvents.h; sourceTree = "<group>"; };
-		7C779E27104A57E500F444C4 /* WinEventsSDL.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WinEventsSDL.cpp; sourceTree = "<group>"; };
-		7C779E28104A57E500F444C4 /* WinEventsSDL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinEventsSDL.h; sourceTree = "<group>"; };
 		7C779E29104A57E500F444C4 /* WinSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WinSystem.cpp; sourceTree = "<group>"; };
 		7C779E2A104A57E500F444C4 /* WinSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinSystem.h; sourceTree = "<group>"; };
 		7C779E2B104A57E500F444C4 /* WinSystemOSX.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WinSystemOSX.mm; sourceTree = "<group>"; };
@@ -6585,8 +6580,6 @@
 				43FAC8CE12D63CA800F67914 /* osx */,
 				7C779E25104A57E500F444C4 /* WindowingFactory.h */,
 				7C779E26104A57E500F444C4 /* WinEvents.h */,
-				7C779E27104A57E500F444C4 /* WinEventsSDL.cpp */,
-				7C779E28104A57E500F444C4 /* WinEventsSDL.h */,
 				F500E35517F3412C004FC217 /* WinEvents.cpp */,
 				F500E35917F34132004FC217 /* WinEvents.h */,
 				7C779E29104A57E500F444C4 /* WinSystem.cpp */,
@@ -10053,7 +10046,6 @@
 				F5D8EF5B103912A4004A11AB /* DVDSubtitleParserVplayer.cpp in Sources */,
 				7C779E3A104A57E500F444C4 /* RenderSystem.cpp in Sources */,
 				7C779E3B104A57E500F444C4 /* RenderSystemGL.cpp in Sources */,
-				7C779E3C104A57E500F444C4 /* WinEventsSDL.cpp in Sources */,
 				7C779E3D104A57E500F444C4 /* WinSystem.cpp in Sources */,
 				7C779E3E104A57E500F444C4 /* WinSystemOSX.mm in Sources */,
 				7C779E3F104A57E500F444C4 /* WinSystemOSXGL.mm in Sources */,
@@ -11525,7 +11517,6 @@
 				DFF0F41917528350002DA3A4 /* GUIViewState.cpp in Sources */,
 				DFF0F41A17528350002DA3A4 /* ViewDatabase.cpp in Sources */,
 				DFF0F41B17528350002DA3A4 /* ViewStateSettings.cpp in Sources */,
-				DFF0F41C17528350002DA3A4 /* WinEventsSDL.cpp in Sources */,
 				DFF0F41D17528350002DA3A4 /* WinSystem.cpp in Sources */,
 				DFF0F41E17528350002DA3A4 /* GUIMediaWindow.cpp in Sources */,
 				DFF0F41F17528350002DA3A4 /* GUIWindowDebugInfo.cpp in Sources */,
@@ -12562,7 +12553,6 @@
 				E499149D174E606E00741B6D /* GUIViewState.cpp in Sources */,
 				E499149E174E606E00741B6D /* ViewDatabase.cpp in Sources */,
 				E499149F174E606E00741B6D /* ViewStateSettings.cpp in Sources */,
-				E49914A0174E606E00741B6D /* WinEventsSDL.cpp in Sources */,
 				E49914A1174E606E00741B6D /* WinSystem.cpp in Sources */,
 				E49914A2174E607200741B6D /* GUIMediaWindow.cpp in Sources */,
 				E49914A3174E607200741B6D /* GUIWindowDebugInfo.cpp in Sources */,
@@ -12834,7 +12824,6 @@
 					"-lswresample",
 					"-lswscale",
 					"-lGLEW",
-					"-lSDL",
 					"-lsmbclient",
 					"-lpython2.6",
 					"-ltag",
@@ -12970,7 +12959,6 @@
 					"-lswresample",
 					"-lswscale",
 					"-lGLEW",
-					"-lSDL",
 					"-lsmbclient",
 					"-lpython2.6",
 					"-ltag",

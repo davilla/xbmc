@@ -34,7 +34,7 @@
 #include "guilib/GraphicContext.h"
 #include "cores/IPlayer.h"
 
-#ifdef HAS_SDL
+#if defined(HAS_SDL) && !defined(TARGET_DARWIN_OSX)
 #include <SDL/SDL_stdinc.h>
 #else
 #define SDL_memset4(dst, val, len)		\
