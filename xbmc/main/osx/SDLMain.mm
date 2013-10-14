@@ -55,6 +55,7 @@ extern OSErr	CPSSetFrontProcess(CPSProcessSerNum *psn);
 
 static int    gArgc;
 static char  **gArgv;
+static int    gStatus;
 static BOOL   gFinderLaunch;
 static BOOL   gCalledAppMainline = FALSE;
 
@@ -260,6 +261,36 @@ static void setupWindowMenu(void)
   [pool release];
 }
 
+extern int OSX_main(int argc, char* argv[]);
+
+- (void) mainLoopThread:(id)arg
+{
+  NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+  // empty
+  gStatus = OSX_main(gArgc, gArgv);
+  [pool release];
+  [self performSelectorOnMainThread:@selector(closeNsApp) withObject:nil waitUntilDone:false];
+}
+
+- (void) closeNsApp
+{
+  [NSApp stop:nil];
+
+  //post a NOP event, so the run loop actually stops
+  //see http://www.cocoabuilder.com/archive/cocoa/219842-nsapp-stop.html
+  NSEvent* event = [NSEvent otherEventWithType: NSApplicationDefined
+    location: NSMakePoint(0,0)
+    modifierFlags: 0
+    timestamp: 0.0
+    windowNumber: 0
+    context: nil
+    subtype: 0
+    data1: 0
+    data2: 0];
+  //
+  [NSApp postEvent: event atStart: true];
+}
+
 // Called after the internal event loop has started running.
 - (void) applicationDidFinishLaunching: (NSNotification *) note
 {
@@ -288,7 +319,7 @@ static void setupWindowMenu(void)
 
   // stop the main loop so we return to main (below) and can
   // call SDL_main there.
-  [NSApp stop:nil];
+/*  [NSApp stop:nil];
 
   //post a NOP event, so the run loop actually stops
   //see http://www.cocoabuilder.com/archive/cocoa/219842-nsapp-stop.html
@@ -302,7 +333,10 @@ static void setupWindowMenu(void)
     data1: 0
     data2: 0];
   //
-  [NSApp postEvent: event atStart: true];
+  [NSApp postEvent: event atStart: true];*/
+
+  // kick our mainloop into an extra thread
+  [NSThread detachNewThreadSelector:@selector(mainLoopThread:) toTarget:self withObject:nil];
 }
 
 /*
@@ -438,14 +472,13 @@ int main(int argc, char *argv[])
 
   // call SDL_main which calls our real main in xbmc.cpp
   // see http://lists.libsdl.org/pipermail/sdl-libsdl.org/2008-September/066542.html
-  int status;
-  status = SDL_main(gArgc, gArgv);
-  SDL_Quit();
+  //int status;
+  //status = OSX_main(gArgc, gArgv);
 
   [xbmc_delegate applicationWillTerminate:NULL];
   [xbmc_delegate release];
   [pool release];
 
-  return status;
+  return gStatus;
 }
 #endif
