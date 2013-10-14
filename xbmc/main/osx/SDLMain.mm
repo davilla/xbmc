@@ -236,34 +236,18 @@ static void setupWindowMenu(void)
 
   [[[NSWorkspace sharedWorkspace] notificationCenter] removeObserver:self
     name:NSWorkspaceDidUnmountNotification object:nil];
-
-  NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-
-  [center removeObserver:self name:MediaKeyPower object:nil];
-  [center removeObserver:self name:MediaKeySoundMute object:nil];
-  [center removeObserver:self name:MediaKeySoundUp object:nil];
-  [center removeObserver:self name:MediaKeySoundDown object:nil];
-  [center removeObserver:self name:MediaKeyPlayPauseNotification object:nil];
-  [center removeObserver:self name:MediaKeyFastNotification object:nil];
-  [center removeObserver:self name:MediaKeyRewindNotification object:nil];
-  [center removeObserver:self name:MediaKeyNextNotification object:nil];
-  [center removeObserver:self name:MediaKeyPreviousNotification object:nil];
-
-  [[HotKeyController sharedController] disableTap];
 }
 
 - (void) applicationWillResignActive:(NSNotification *) note
 {
-  //[[HotKeyController sharedController] sysPower:NO];
-  //[[HotKeyController sharedController] sysVolume:NO];
-  [[HotKeyController sharedController] setActive:NO];
+  if (g_Windowing.GetEvents())
+    g_Windowing.GetEvents()->SetHotKeysEnabled(false);
 }
 
 - (void) applicationWillBecomeActive:(NSNotification *) note
 {
-  //[[HotKeyController sharedController] sysPower:YES];
-  //[[HotKeyController sharedController] sysVolume:YES];
-  [[HotKeyController sharedController] setActive:YES];
+  if (g_Windowing.GetEvents() != NULL)
+    g_Windowing.GetEvents()->SetHotKeysEnabled(true);
 }
 
 // To use Cocoa on secondary POSIX threads, your application must first detach
@@ -295,39 +279,6 @@ static void setupWindowMenu(void)
     selector:@selector(deviceDidUnMountNotification:)
     name:NSWorkspaceDidUnmountNotification
     object:nil];
-
-  NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-
-  // create media key handler singlton
-  [[HotKeyController sharedController] enableTap];
-  // add media key notifications
-  [center addObserver:self
-    selector:@selector(powerKeyNotification)
-    name:MediaKeyPower object:nil];
-  [center addObserver:self
-    selector:@selector(muteKeyNotification)
-    name:MediaKeySoundMute object:nil];
-  [center addObserver:self
-    selector:@selector(soundUpKeyNotification)
-    name:MediaKeySoundUp object:nil];
-  [center addObserver:self
-    selector:@selector(soundDownKeyNotification)
-    name:MediaKeySoundDown object:nil];
-  [center addObserver:self
-    selector:@selector(playPauseKeyNotification)
-    name:MediaKeyPlayPauseNotification object:nil];
-  [center addObserver:self
-    selector:@selector(fastKeyNotification)
-    name:MediaKeyFastNotification object:nil];
-  [center addObserver:self
-    selector:@selector(rewindKeyNotification)
-    name:MediaKeyRewindNotification object:nil];
-  [center addObserver:self
-    selector:@selector(nextKeyNotification)
-    name:MediaKeyNextNotification object:nil];
-  [center addObserver:self
-    selector:@selector(previousKeyNotification)
-    name:MediaKeyPreviousNotification object:nil];
 
   // We're going to manually manage the screensaver.
   setenv("SDL_VIDEO_ALLOW_SCREENSAVER", "1", true);
@@ -421,96 +372,6 @@ static void setupWindowMenu(void)
 
   CDarwinStorageProvider::SetEvent();
   [pool release];
-}
-
-#define VK_SLEEP            0x143
-#define VK_VOLUME_MUTE      0xAD
-#define VK_VOLUME_DOWN      0xAE
-#define VK_VOLUME_UP        0xAF
-#define VK_MEDIA_NEXT_TRACK 0xB0
-#define VK_MEDIA_PREV_TRACK 0xB1
-#define VK_MEDIA_STOP       0xB2
-#define VK_MEDIA_PLAY_PAUSE 0xB3
-#define VK_REWIND           0x9D
-#define VK_FAST_FWD         0x9E
-
-- (void)powerKeyNotification
-{
-  SDL_Event event;
-  memset(&event, 0, sizeof(event));
-  event.type = SDL_KEYDOWN;
-  event.key.keysym.sym = (SDLKey)VK_SLEEP;
-  SDL_PushEvent(&event);
-}
-
-- (void)muteKeyNotification
-{
-  SDL_Event event;
-  memset(&event, 0, sizeof(event));
-  event.type = SDL_KEYDOWN;
-  event.key.keysym.sym = (SDLKey)VK_VOLUME_MUTE;
-  SDL_PushEvent(&event);
-}
-- (void)soundUpKeyNotification
-{
-  SDL_Event event;
-  memset(&event, 0, sizeof(event));
-  event.type = SDL_KEYDOWN;
-  event.key.keysym.sym = (SDLKey)VK_VOLUME_UP;
-  SDL_PushEvent(&event);
-}
-- (void)soundDownKeyNotification
-{
-  SDL_Event event;
-  memset(&event, 0, sizeof(event));
-  event.type = SDL_KEYDOWN;
-  event.key.keysym.sym = (SDLKey)VK_VOLUME_DOWN;
-  SDL_PushEvent(&event);
-}
-
-- (void)playPauseKeyNotification
-{
-  SDL_Event event;
-  memset(&event, 0, sizeof(event));
-  event.type = SDL_KEYDOWN;
-  event.key.keysym.sym = (SDLKey)VK_MEDIA_PLAY_PAUSE;
-  SDL_PushEvent(&event);
-}
-
-- (void)fastKeyNotification
-{
-  SDL_Event event;
-  memset(&event, 0, sizeof(event));
-  event.type = SDL_KEYDOWN;
-  event.key.keysym.sym = (SDLKey)VK_FAST_FWD;
-  SDL_PushEvent(&event);
-}
-
-- (void)rewindKeyNotification
-{
-  SDL_Event event;
-  memset(&event, 0, sizeof(event));
-  event.type = SDL_KEYDOWN;
-  event.key.keysym.sym = (SDLKey)VK_REWIND;
-  SDL_PushEvent(&event);
-}
-
-- (void)nextKeyNotification
-{
-  SDL_Event event;
-  memset(&event, 0, sizeof(event));
-  event.type = SDL_KEYDOWN;
-  event.key.keysym.sym = (SDLKey)VK_MEDIA_NEXT_TRACK;
-  SDL_PushEvent(&event);
-}
-
-- (void)previousKeyNotification
-{
-  SDL_Event event;
-  memset(&event, 0, sizeof(event));
-  event.type = SDL_KEYDOWN;
-  event.key.keysym.sym = (SDLKey)VK_MEDIA_PREV_TRACK;
-  SDL_PushEvent(&event);
 }
 
 @end

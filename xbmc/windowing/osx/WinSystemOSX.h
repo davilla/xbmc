@@ -73,6 +73,7 @@ public:
   void CheckDisplayChanging(u_int32_t flags);
   
   void* GetCGLContextObj();
+  CWinEventsOSX *GetEvents(){ return m_osx_events; }
 
   std::string GetClipboardText(void);
 

@@ -20,11 +20,37 @@
  *
  */
 
-#include "windowing/WinEventsSDL.h"
+#include "windowing/WinEvents.h"
 
-class CWinEventsOSX : public CWinEventsSDL
+class CWinEventsOSX : public IWinEvents
 {
 public:
   CWinEventsOSX();
   ~CWinEventsOSX();
+
+  void MessagePush(XBMC_Event *newEvent);
+  bool MessagePump();
+  virtual size_t  GetQueueSize();
+
+  void *GetEventTap(){return mEventTap;}
+  bool TapVolumeKeys(){return mTapVolumeKeys;}
+  bool TapPowerKey(){return mTapPowerKey;}
+  void SetHotKeysEnabled(bool enable){mHotKeysEnabled = enable;}
+  bool AreHotKeysEnabled(){return mHotKeysEnabled;}
+  void EnableInput();
+
+private:
+  
+  void *mRunLoopSource;
+  void *mEventTap;
+  void *mLocalMonitorId;
+  bool mHotKeysEnabled;
+  bool mTapVolumeKeys;
+  bool mTapPowerKey;
+  
+  void enableHotKeyTap();
+  void disableHotKeyTap();
+  void enableInputEvents();
+  void disableInputEvents();  
+
 };

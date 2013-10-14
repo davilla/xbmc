@@ -880,6 +880,7 @@ bool CWinSystemOSX::InitWindowSystem()
     return false;
 
   m_osx_events = new CWinEventsOSX();
+  m_osx_events->EnableInput();
 
   if (m_can_display_switch)
     CGDisplayRegisterReconfigurationCallback(DisplayReconfigured, (void*)this);
