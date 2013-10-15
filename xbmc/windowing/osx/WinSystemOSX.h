@@ -25,15 +25,10 @@
 #include "windowing/WinSystem.h"
 #include "threads/CriticalSection.h"
 
+struct WindowData;
+
 class IDispResource;
 class CWinEventsOSX;
-
-typedef struct WindowData {
-  void *nswindow;
-  void *listener;
-  void *glcontext;
-  bool created;
-} WindowData;
 
 class CWinSystemOSX : public CWinSystemBase
 {
@@ -68,15 +63,15 @@ public:
   virtual void Register(IDispResource *resource);
   virtual void Unregister(IDispResource *resource);
   
-  virtual int GetNumScreens();
+  virtual int  GetNumScreens();
 
-  void CheckDisplayChanging(u_int32_t flags);
+  void         CheckDisplayChanging(u_int32_t flags);
   
-  void* GetCGLContextObj();
-  CWinEventsOSX *GetEvents(){ return m_osx_events; }
+  void*        GetCGLContextObj();
+  CWinEventsOSX* GetEvents();
 
-  std::string GetClipboardText(void);
-  float FlipY(float y);
+  std::string  GetClipboardText(void);
+  float        FlipY(float y);
 
 protected:
   void* CreateWindowedContext(void* shareCtx);
@@ -90,10 +85,9 @@ protected:
   void  StartTextInput();
   void  StopTextInput();
 
-  void* m_glContext;
-  static void* m_lastOwnedContext;
-  void* m_SDLWindow;
-  CWinEventsOSX *m_osx_events;
+  void                        *m_glContext;
+  static void                 *m_lastOwnedContext;
+  CWinEventsOSX               *m_osx_events;
   bool                         m_obscured;
   unsigned int                 m_obscured_timecheck;
 
@@ -104,7 +98,7 @@ protected:
 
   CCriticalSection             m_resourceSection;
   std::vector<IDispResource*>  m_resources;
-  WindowData                   *m_windowData;
+  WindowData                  *m_windowData;
 };
 
 #endif

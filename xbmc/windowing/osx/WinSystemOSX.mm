@@ -35,21 +35,32 @@
 #include "threads/SingleLock.h"
 #include "utils/log.h"
 #include "osx/XBMCHelper.h"
-#include "utils/SystemInfo.h"
 #include "osx/CocoaInterface.h"
 #include "osx/DarwinUtils.h"
+#include "utils/SystemInfo.h"
 #include "windowing/WindowingFactory.h"
 #undef BOOL
+
+#import "osx/OSXTextInputResponder.h"
 
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
 #import <IOKit/pwr_mgt/IOPMLib.h>
 #import <IOKit/graphics/IOGraphicsLib.h>
-#import "osx/OSXTextInputResponder.h"
 #import <Foundation/Foundation.h>
 
 // turn off deprecated warning spew.
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+
+@class WindowListener;
+
+typedef struct WindowData {
+  bool             created;
+  NSWindow        *nswindow;
+  WindowListener  *listener;
+  NSOpenGLContext *glcontext;
+} WindowData;
+
 
 @interface WindowListener : NSResponder <NSWindowDelegate>
 {
@@ -101,7 +112,7 @@
 {
   NSLog(@"listen");
   NSNotificationCenter *center;
-  NSWindow *window = (NSWindow *)windowData->nswindow;
+  NSWindow *window = windowData->nswindow;
   NSView *view = [window contentView];
   
   m_windowData = windowData;
@@ -172,13 +183,13 @@
 {
   NSLog(@"pauseVisibleObservation");
   observingVisible = NO;
-  wasVisible = [(NSWindow *)m_windowData->nswindow isVisible];
+  wasVisible = [m_windowData->nswindow isVisible];
 }
 
 -(void) resumeVisibleObservation
 {
   NSLog(@"resumeVisibleObservation");
-  BOOL isVisible = [(NSWindow *)m_windowData->nswindow isVisible];
+  BOOL isVisible = [m_windowData->nswindow isVisible];
   observingVisible = YES;
   if (wasVisible != isVisible)
   {
@@ -199,7 +210,7 @@
 {
   NSLog(@"close");
   NSNotificationCenter *center;
-  NSWindow *window = (NSWindow *)m_windowData->nswindow;
+  NSWindow *window = m_windowData->nswindow;
   NSView *view = [window contentView];
   NSArray *windows = nil;
   
@@ -259,13 +270,12 @@
 - (void)windowDidMove:(NSNotification *)aNotification
 {
   NSLog(@"windowDidMove");
-  int x, y;
-  NSWindow *nswindow = (NSWindow *)m_windowData->nswindow;
+  NSWindow *nswindow = m_windowData->nswindow;
   NSRect rect = [nswindow contentRectForFrameRect:[nswindow frame]];
   //ConvertNSRect(&rect);
   
-  //x = (int)rect.origin.x;
-  //y = (int)rect.origin.y;
+  //int x = (int)rect.origin.x;
+  //int y = (int)rect.origin.y;
   
  // [(NSOpenGLContext *)_data->glcontext scheduleUpdate];
   //ScheduleContextUpdates(_data);
@@ -276,16 +286,15 @@
 - (void)windowDidResize:(NSNotification *)aNotification
 {
   NSLog(@"windowDidResize");
-  int x, y, w, h;
-  NSWindow *nswindow = (NSWindow *)m_windowData->nswindow;
+  NSWindow *nswindow = m_windowData->nswindow;
   NSRect rect = [nswindow contentRectForFrameRect:[nswindow frame]];
 
   /*
   ConvertNSRect(&rect);
-  x = (int)rect.origin.x;
-  y = (int)rect.origin.y;
-  w = (int)rect.size.width;
-  h = (int)rect.size.height;
+  int x = (int)rect.origin.x;
+  int y = (int)rect.origin.y;
+  int w = (int)rect.size.width;
+  int h = (int)rect.size.height;
   if (SDL_IsShapedWindow(_data->window))
     Cocoa_ResizeWindowShape(_data->window);
   */
@@ -682,7 +691,7 @@ NSString* screenNameForDisplay(CGDirectDisplayID displayID)
 void ShowHideNSWindow(WindowData *windowData, bool show)
 {
   NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-  NSWindow *nswindow = (NSWindow *)windowData->nswindow;
+  NSWindow *nswindow = windowData->nswindow;
   
   if ( show )
   {
@@ -860,7 +869,6 @@ CWinSystemOSX::CWinSystemOSX() : CWinSystemBase()
 {
   m_eWindowSystem = WINDOW_SYSTEM_OSX;
   m_glContext = 0;
-  m_SDLWindow = NULL;
   m_osx_events = NULL;
   m_obscured   = false;
   m_windowData = NULL;
@@ -969,12 +977,11 @@ bool CWinSystemOSX::CreateNewWindow(const CStdString& name, bool fullScreen, RES
   
   m_windowData = (WindowData *)calloc(1, sizeof(WindowData));
   
-  m_windowData->nswindow = appWindow;
   m_windowData->created = m_bWindowCreated;
-  m_windowData->glcontext = m_glContext;
-  
-  m_windowData->listener = [[WindowListener alloc] init];
-  [(WindowListener*)m_windowData->listener listen:m_windowData];
+  m_windowData->nswindow  = appWindow;
+  m_windowData->glcontext = (NSOpenGLContext*)m_glContext;
+  m_windowData->listener  = [[WindowListener alloc] init];
+  [m_windowData->listener listen:m_windowData];
   
   [pool release];
   
@@ -988,8 +995,8 @@ bool CWinSystemOSX::DestroyWindow()
   
   if(m_windowData)
   {
-    [(WindowListener*)m_windowData->listener close];
-    [(WindowListener*)m_windowData->listener release];
+    [m_windowData->listener close];
+    [m_windowData->listener release];
     
     // release the context
     if ( m_glContext )
@@ -1347,8 +1354,8 @@ void* CWinSystemOSX::CreateWindowedContext(void* shareCtx)
     NSOpenGLPFANoRecovery,
     NSOpenGLPFAAccelerated,
     NSOpenGLPFADepthSize,
-    (NSOpenGLPixelFormatAttribute)8,
-    (NSOpenGLPixelFormatAttribute)0
+   (NSOpenGLPixelFormatAttribute)8,
+   (NSOpenGLPixelFormatAttribute)0
   };
 
   NSOpenGLPixelFormat* pixFmt = [[NSOpenGLPixelFormat alloc] initWithAttributes:wattrs];
@@ -1366,8 +1373,8 @@ void* CWinSystemOSX::CreateWindowedContext(void* shareCtx)
       NSOpenGLPFAWindow,
       NSOpenGLPFANoRecovery,
       NSOpenGLPFADepthSize,
-      (NSOpenGLPixelFormatAttribute)8,
-      (NSOpenGLPixelFormatAttribute)0
+     (NSOpenGLPixelFormatAttribute)8,
+     (NSOpenGLPixelFormatAttribute)0
     };
     NSOpenGLPixelFormat* pixFmt = [[NSOpenGLPixelFormat alloc] initWithAttributes:wattrs2];
 
@@ -1399,7 +1406,7 @@ void* CWinSystemOSX::CreateFullScreenContext(int screen_index, void* shareCtx)
     NSOpenGLPFAAccelerated,
     NSOpenGLPFADepthSize,  (NSOpenGLPixelFormatAttribute)8,
     NSOpenGLPFAScreenMask, (NSOpenGLPixelFormatAttribute)CGDisplayIDToOpenGLDisplayMask(displayID),
-    (NSOpenGLPixelFormatAttribute)0
+   (NSOpenGLPixelFormatAttribute)0
   };
 
   NSOpenGLPixelFormat* pixFmt = [[NSOpenGLPixelFormat alloc] initWithAttributes:fsattrs];
@@ -1418,6 +1425,7 @@ void CWinSystemOSX::GetScreenResolution(int* w, int* h, double* fps, int screenI
   // Figure out the screen size. (default to main screen)
   if (screenIdx >= GetNumScreens())
     return;
+
   CGDirectDisplayID display_id = (CGDirectDisplayID)GetDisplayID(screenIdx);
 
   NSOpenGLContext* context = [NSOpenGLContext currentContext];
@@ -1944,6 +1952,11 @@ void CWinSystemOSX::CheckDisplayChanging(u_int32_t flags)
 void* CWinSystemOSX::GetCGLContextObj()
 {
   return [(NSOpenGLContext*)m_glContext CGLContextObj];
+}
+
+CWinEventsOSX* CWinSystemOSX::GetEvents()
+{
+  return m_osx_events;
 }
 
 std::string CWinSystemOSX::GetClipboardText(void)
