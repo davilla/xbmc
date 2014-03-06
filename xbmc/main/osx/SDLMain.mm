@@ -14,6 +14,7 @@
 #import "SDLMain.h"
 #import <sys/param.h> /* for MAXPATHLEN */
 #import <unistd.h>
+#import <dlfcn.h>
 
 #import "osx/CocoaInterface.h"
 //hack around problem with xbmc's typedef int BOOL
@@ -161,6 +162,12 @@ static void setupWindowMenu(void)
 // Called before the internal event loop has started running.
 - (void) finishLaunching
 {
+  //This must be loaded before playing with SDL, else we get issues on osx 10.8.
+  void* cocoa_lib = dlopen( "/System/Library/Frameworks/Cocoa.framework/Cocoa", RTLD_LAZY );
+  void (*nsappload)(void);
+  nsappload = (void(*)()) dlsym( cocoa_lib, "NSApplicationLoad");
+  nsappload();
+
   [super finishLaunching];
 }
 
